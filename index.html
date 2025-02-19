@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penang Hokkien TTS Model</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #34495e;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 5px;
+        }
+
+        h3, h4 {
+            font-size: 1.2rem;
+            color: #8e44ad;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        .audio-container {
+            background-color: #ecf0f1;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .audio-column {
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        .audio-column h4,
+        .audio-column p {
+            margin: 10px 0;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        strong {
+            color: #2980b9;
+        }
+
+        em {
+            font-style: italic;
+            color: #16a085;
+        }
+
+        a {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .audio-container {
+            background-color: #ecf0f1;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        .header-with-text {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-with-text h4 {
+            margin: 0;
+        }
+
+        .header-with-text span {
+            margin-left: 10px;
+            font-size: 16px; /* Adjust the font size to match normal text */
+            color: #333; /* Normal text color */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Low Resource Penang Hokkien Dialect Speech Synthesis</h1>
+
+    <h2>Abstract</h2>
+    <p style="text-align: justify;">This study presents the first Text-to-Speech (TTS) system for the Penang Hokkien dialect, a low-resource tonal language spoken in Malaysia. The decline in Penang Hokkien usage necessitates preservation efforts, and speech synthesis offers a viable approach. However, data scarcity poses a significant challenge. To address this, we construct a real speech dataset and propose a synthetic data augmentation strategy by concatenating syllables into utterances. We fine-tune a pre-trained SpeechT5 model with both real and synthetic data, integrating numerical tone markers to improve tonal representation. Objective and subjective evaluations, including Mel-Cepstral Distortion (MCD) and Mean Opinion Score (MOS), demonstrate that our approach enhances intelligibility and naturalness. The best-performing model achieves an MOS of 3.92, highlighting improvements while underscoring the remaining gap toward human-like synthesis.</p>
+   
+    <h2>Training Configurations</h2>
+    <table>
+        <tr>
+            <th>Model</th>
+            <th>Input Tone Representation</th>
+            <th>Intermediate Fine-Tuning on Synthetic Speech Data</th>
+            <th>Fine-Tuning on Real Speech Data</th>
+            <th>MCD</th>
+            <th>MOS</th>
+        </tr>
+        <tr>
+            <td>Model I</td>
+            <td>Diacritic</td>
+            <td>-</td>
+            <td>45 minutes, fine-tune on all layers</td>
+            <td>22.89 ± 2.18</td>
+            <td>2.71 ± 0.58</td>
+        </tr>
+        <tr>
+            <td>Model II</td>
+            <td>Numerical</td>
+            <td>-</td>
+            <td>45 minutes, fine-tune on all layers</td>
+            <td>21.04 ± 2.45</td>
+            <td>3.57 ± 0.57</td>
+        </tr>
+        <tr>
+            <td>Model III</td>
+            <td>Numerical</td>
+            <td>1 hour</td>
+            <td>45 minutes, fine-tune on all layers</td>
+            <td>20.21 ± 1.97</td>
+            <td>3.74 ± 0.40</td>
+        </tr>
+        <tr>
+            <td>Model IV</td>
+            <td>Numerical</td>
+            <td>2 hour</td>
+            <td>45 minutes, fine-tune on all layers</td>
+            <td>20.07 ± 2.09</td>
+            <td>3.92 ± 0.40</td>
+        </tr>
+        <tr>
+            <td>Model V</td>
+            <td>Numerical</td>
+            <td>4 hour</td>
+            <td>45 minutes, fine-tune on all layers</td>
+            <td>20.14 ± 2.11</td>
+            <td>3.73 ± 0.36</td>
+        </tr>
+    </table>
+
+    <h2>Synthesized Audio Samples</h2>
+
+    <div class="header-with-text">
+        <h4>SPEECH 1</h4>
+        <span>- These samples demonstrate the model's ability to capture and reproduce tonal information, showcasing clear distinction between tones, where a change in tone can alter meaning.</span>
+    </div>
+        <p style="margin-bottom: 0%;"><em style="font-weight: bold;">kong-kong kóng, kóng-kóng kòng kong-kong.</em></p>
+        <p style="margin-top: 0%;"><em style="color: grey;">(Grandpa says he was knocked by a can.)</em></p>
+        <div class="audio-container" style="margin-bottom: 80px;">
+        <div class="audio-column">
+            <p><strong>Model I</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\kongkong1.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model II</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\kongkong2.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model III</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\kongkong3.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model IV</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\kongkong4.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model V</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\kongkong5.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
+    <div class="header-with-text">
+        <h4>SPEECH 2</h4>
+        <span>- These samples highlight the model's precision in distinguishing phonetically similar words such as "mah", "mà", "ma̍nnh", which share the same initial sound but differ in final sounds (glottal stop, simple vowel, nasal glottal stop), showcasing clarity in pronunciation.</span>
+    </div>
+        <p style="margin-bottom: 0%;"><em style="font-weight: bold;">wá ê mah mà-sī sū-kah tsia̍h nānn-sī-lū-ma̍nnh.</em></p>
+        <p style="margin-top: 0%;"><em style="color: grey;">(My mom also likes to eat nasi lemak.)</em></p>
+    <div class="audio-container" style="margin-bottom: 80px;">
+        <div class="audio-column">
+            <p><strong>Model I</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\nasi1.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model II</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\nasi2.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model III</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\nasi3.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model IV</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\nasi4.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model V</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\nasi5.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+    <div class="header-with-text">
+        <h4>SPEECH 3</h4>
+        <span>- These samples illustrate the models' ability to handle out-of-vocabulary (OOV) tokens such as "gēr", "lēeng", "ngāng" by generating plausible pronunciations based on learned phonetic patterns. While the model may not have seen certain words during training, it effectively generalizes to novel inputs by leveraging contextual similarities and tonal structures.</span>
+    </div>
+    <p style="margin-bottom: 0%;"><em style="font-weight: bold;">tsin gēr-lam khuànn lú tī tsia lēeng-ngāng-lēeng-ngang.</em></p>
+    <p style="margin-top: 0%;"><em style="color: grey;">(It's frustrating seeing you lengang-lengang here—just doing nothing.)</em></p>
+    <div class="audio-container" style="margin-bottom: 80px;">
+        <div class="audio-column">
+            <p><strong>Model I</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\geram1.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model II</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\geram2.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model III</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\geram3.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model IV</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\geram4.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-column">
+            <p><strong>Model V</strong></p>
+            <audio controls>
+                <source src="C:\Users\Cecil\Downloads\website-audio\geram5.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+</body>
+
+</html>
