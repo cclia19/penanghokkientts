@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penang Hokkien TTS Model</title>
+    <title>Phonetic Completeness Over Prosodic Diversity: Syllable-Level Synthetic Corpus Construction For Low-Resource Penang Hokkien Speech Synthesis</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -129,8 +129,8 @@
     <h1>Low Resource Penang Hokkien Dialect Speech Synthesis</h1>
 
     <h2>Abstract</h2>
-    <p style="text-align: justify;">This study presents the first Text-to-Speech (TTS) system for the Penang Hokkien dialect, a low-resource tonal language spoken in Malaysia. The decline in Penang Hokkien usage necessitates preservation efforts, and speech synthesis offers a viable approach. However, data scarcity poses a significant challenge. To address this, we construct a real speech dataset and propose a synthetic data augmentation strategy by concatenating syllables into utterances. We fine-tune a pre-trained SpeechT5 model with both real and synthetic data, integrating numerical tone markers to improve tonal representation. Objective and subjective evaluations, including Mel-Cepstral Distortion (MCD) and Mean Opinion Score (MOS), demonstrate that our approach enhances intelligibility and naturalness. The best-performing model achieves an MOS of 3.92, highlighting improvements while underscoring the remaining gap toward human-like synthesis.</p>
-   
+    <p style="text-align: justify;">This study presents the first Text-to-Speech (TTS) model for Penang Hokkien, a low-resource tonal dialect at risk of extinction. We address phonological sparsity in the collected speech corpus by proposing a two-stage fine-tuning approach that prioritizes comprehensive phonetic coverage over traditional acoustic variety. By supplementing a limited 45-minute real speech corpus with a 4-hour syllable-level concatenative synthetic corpus, the full dialectal inventory of approximately 2,000 unique syllable-tone combinations was encompassed. Technical optimizations, including a 600-ms cross-fading technique to mitigate boundary artifacts and numerical tone markers to reduce token sparsity, contributed to the model’s performance. By intermediately fine-tuning a SpeechT5_TTS model on the synthetic speech corpus to establish a dense phonetic foundation before refining it with real speech to capture authentic prosodic naturalness, the model achieved a Mean Opinion Score (MOS) of 3.92.</p>
+
     <h2>Training Configurations</h2>
     <table>
         <tr>
@@ -145,6 +145,7 @@
             <td>Model I</td>
             <td>Diacritic</td>
             <td>-</td>
+            <td>45 minutes, fine-tune on all layers</td>
             <td>45 minutes</td>
             <td>22.89 ± 2.18</td>
             <td>2.71 ± 0.58</td>
@@ -153,6 +154,7 @@
             <td>Model II</td>
             <td>Numerical</td>
             <td>-</td>
+            <td>45 minutes, fine-tune on all layers</td>
             <td>45 minutes</td>
             <td>21.04 ± 2.45</td>
             <td>3.57 ± 0.57</td>
@@ -161,6 +163,7 @@
             <td>Model III</td>
             <td>Numerical</td>
             <td>1 hour</td>
+            <td>45 minutes, fine-tune on all layers</td>
             <td>45 minutes</td>
             <td>20.21 ± 1.97</td>
             <td>3.74 ± 0.40</td>
@@ -169,6 +172,7 @@
             <td>Model IV</td>
             <td>Numerical</td>
             <td>2 hour</td>
+            <td>45 minutes, fine-tune on all layers</td>
             <td>45 minutes</td>
             <td>20.07 ± 2.09</td>
             <td>3.92 ± 0.40</td>
@@ -177,6 +181,7 @@
             <td>Model V</td>
             <td>Numerical</td>
             <td>4 hour</td>
+            <td>45 minutes, fine-tune on all layers</td>
             <td>45 minutes</td>
             <td>20.14 ± 2.11</td>
             <td>3.73 ± 0.36</td>
