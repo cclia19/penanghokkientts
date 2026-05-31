@@ -129,7 +129,23 @@
     <h1>Phonetic Completeness Over Prosodic Diversity: Syllable-Level Synthetic Corpus Construction For Low-Resource Penang Hokkien Speech Synthesis</h1>
 
     <h2>Abstract</h2>
-    <p style="text-align: justify;">This study presents the first Text-to-Speech (TTS) model for Penang Hokkien, a low-resource tonal dialect at risk of extinction. We address phonological sparsity in the collected speech corpus by proposing a two-stage fine-tuning approach that prioritizes comprehensive phonetic coverage over traditional acoustic variety. By supplementing a limited 45-minute real speech corpus with a 4-hour syllable-level concatenative synthetic corpus, the full dialectal inventory of approximately 2,000 unique syllable-tone combinations was encompassed. Technical optimizations, including a 600-ms cross-fading technique to mitigate boundary artifacts and numerical tone markers to reduce token sparsity, contributed to the model’s performance. By intermediately fine-tuning a SpeechT5_TTS model on the synthetic speech corpus to establish a dense phonetic foundation before refining it with real speech to capture authentic prosodic naturalness, the model achieved a Mean Opinion Score (MOS) of 3.92.</p>
+    <p style="text-align: justify;">This study presents the first Text-to-Speech (TTS)
+model for Penang Hokkien, a low-resource tonal dialect at risk of
+extinction. To address phonological sparsity in the collected
+speech corpus, we propose a two-stage fine-tuning approach that
+emphasizes comprehensive phonetic coverage through syllablelevel synthetic augmentation while subsequently refining
+prosodic naturalness using real speech recordings. By
+supplementing a limited 45-minute real speech corpus with a 2-
+hour syllable-level concatenative synthetic corpus, the full
+dialectal inventory of approximately 2,000 unique syllable-tone
+combinations was encompassed. Experimental results suggest
+that improving syllable-tone coverage contributes substantially to
+intelligibility and tonal accuracy in this low-resource tonal setting.
+Technical optimizations, including a 600-ms cross-fading
+technique to mitigate boundary artifacts and numerical tone
+markers to reduce token sparsity, further improved model
+stability and synthesis quality. The final model achieved a Mean
+Opinion Score (MOS) of 3.92.</p>
 
     <h2>Training Configurations</h2>
     <table>
